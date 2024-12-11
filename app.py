@@ -1,9 +1,9 @@
 import streamlit as st
 import streamlit.components.v1 as components  # Import Streamlit
 import requests
-import cv2
+#import cv2
 import pytesseract
-from io import StringIO
+#from io import StringIO
 from PIL import Image
 import numpy as np
 
