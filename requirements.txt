@@ -1,5 +1,5 @@
 streamlit
-pytesseract
+#pytesseract
 Pillow
 numpy
 requests
