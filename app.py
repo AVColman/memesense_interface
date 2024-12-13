@@ -84,12 +84,16 @@ if uploaded_file is not None:
 
 #Boton para enviar el archivo
 if st.button("Predict"):
-    if uploaded_file and #texto: #modificar esto
+    if uploaded_file:
         files = {"image": uploaded_file.getvalue()}
-        #data = {"text": texto}
-        response = requests.post("http://localhost:8000/upload_image", files=files) #data=data)
+        response = requests.post("http://127.0.0.1:8000/predict", files=files)
         if response.status_code == 200:
-            st.success("Request successful!")
+            prediction = response.json()['label']
+            if prediction == 0:
+                label = "Negative"
+            else:
+                label = "Positive"
+            st.success(f"Prediction: {label}")
         else:
             st.error("Request failed.")
     else:
