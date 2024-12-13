@@ -87,17 +87,23 @@ if st.button("Predict"):
     if uploaded_file:
         files = {"image": uploaded_file.getvalue()}
         response = requests.post("http://127.0.0.1:8000/predict", files=files)
+
         if response.status_code == 200:
+            st.write(f"API Response: {response.json()}")
             prediction = response.json()['label']
+
             if prediction == 0:
                 label = "Negative"
-            else:
+            elif prediction == 1:
                 label = "Positive"
+            else:
+                label = "Unknown"
             st.success(f"Prediction: {label}")
         else:
             st.error("Request failed.")
     else:
         st.write("You need to enter an image!")
+
 
 #Altrnativa por si no corre el pytesseract:
 
