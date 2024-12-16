@@ -6,8 +6,10 @@ import requests
 #from io import StringIO
 from PIL import Image
 import numpy as np
+import base64
 
 API_URL = "http://127.0.0.1:8000/predict/"
+
 
 
 
@@ -16,6 +18,8 @@ st.set_page_config(
             page_icon=":performing_arts:", #Change icon later
             layout="wide", # or centered, wide has more space
             initial_sidebar_state="auto") # collapsed
+
+
 
 st.write("# Welcome to MemeSense! 👋")
 
@@ -62,7 +66,7 @@ st.write("##")
 #User explanation
 st.header("How it works?")
 
-st.write("#### You just need to upload your meme from your local folder and wait for our app to tell you the result! Supported formats are .jpg, .jpeg and .png.")
+st.write("#### You just need to upload the meme you want to analyse from your local folder and wait for our app to tell you the result! Supported formats are .jpg, .jpeg and .png.")
 
 st.write("##")
 
@@ -95,13 +99,13 @@ if st.button("Predict"):
 
             if prediction == 0:
                 label = "Negative"
-                st.markdown("![Alt Text](https://gifer.com/en/5OQ)")
+                st.markdown("![Alt Text](https://i.gifer.com/5OQ.gif)")
             elif prediction == 1:
                 label = "Positive"
                 st.markdown("![Alt Text](https://i.gifer.com/13ym.gif)")
             else:
                 label = "Unknown"
-                st.markdown("![Alt Text](https://gifer.com/en/fyhz)")
+                st.markdown("![Alt Text](https://i.gifer.com/fyhz.gif)")
             st.success(f"Prediction: {label}")
         else:
             st.error("Request failed.")
