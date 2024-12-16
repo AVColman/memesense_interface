@@ -9,6 +9,8 @@ import numpy as np
 
 API_URL = "http://127.0.0.1:8000/predict/"
 
+
+
 st.set_page_config(
             page_title="MemeSense",
             page_icon=":performing_arts:", #Change icon later
@@ -17,11 +19,55 @@ st.set_page_config(
 
 st.write("# Welcome to MemeSense! 👋")
 
-st.write("#### MemeSense is a project that classifies memes between the following categories: Positive and Negative")
+st.write("##")
 
-st.write("")
+### gif from url
+st.markdown("![Alt Text](https://i.gifer.com/Fh5.gif)")
 
-st.write("")
+#Proyect Description
+with st.container():
+    st.write("---")
+    left_column, right_column = st.columns(2)
+    with left_column:
+
+        st.header("What is MemeSense?")
+
+        st.write("##")
+
+        st.write("#### MemeSense is a DeepLearning project that classifies memes between Positive and Negative.")
+
+        st.write("##")
+
+        st.header("What is it for?")
+
+        st.write("##")
+
+        st.write("#### It can be used to apply a meme filter if you don't want to see negative memes on your page.")
+
+        st.write("#### It can help you interpret whether a meme is negative or positive if you are not versed in the world of memes.")
+
+with right_column:
+
+    st.write("##")
+
+    st.markdown("![Alt Text](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExcTlyeWNtamYzMGkweG9mZTc0MXgyOGIyNGFrYzY2aXBwNXpxcHNnbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WRQBXSCnEFJIuxktnw/giphy.webp)")
+
+
+st.write("##")
+
+st.write("---")
+
+st.write("##")
+
+#User explanation
+st.header("How it works?")
+
+st.write("#### You just need to upload your meme from your local folder and wait for our app to tell you the result! Supported formats are .jpg, .jpeg and .png.")
+
+st.write("##")
+
+st.write("##")
+
 # File uploader for the image
 uploaded_file = st.file_uploader("Choose an image in format jpg, png or jpeg...", type=["jpg", "png", "jpeg"])
 if uploaded_file is not None:
@@ -35,7 +81,52 @@ if uploaded_file is not None:
     #Convert the image to a Numpy array
     img = np.array(image)
     print(img.shape)
-    # Convert the image to gray scale
+
+
+#Boton para enviar el archivo
+if st.button("Predict"):
+    if uploaded_file:
+        files = {"image": uploaded_file.getvalue()}
+        response = requests.post("http://127.0.0.1:8000/predict", files=files)
+
+        if response.status_code == 200:
+            st.write(f"API Response: {response.json()}")
+            prediction = response.json()['label']
+
+            if prediction == 0:
+                label = "Negative"
+                st.markdown("![Alt Text](https://gifer.com/en/5OQ)")
+            elif prediction == 1:
+                label = "Positive"
+                st.markdown("![Alt Text](https://i.gifer.com/13ym.gif)")
+            else:
+                label = "Unknown"
+                st.markdown("![Alt Text](https://gifer.com/en/fyhz)")
+            st.success(f"Prediction: {label}")
+        else:
+            st.error("Request failed.")
+    else:
+        st.write("You need to enter an image!")
+
+
+#Altrnativa por si no corre el pytesseract:
+
+# Text input for the string
+#text_input = st.text_input("Enter the meme's text:")
+
+#if st.button("Predict"):
+#    if uploaded_file and text_input:
+#        files = {"image": uploaded_file.getvalue()}
+#        data = {"text": text_input}
+#        response = requests.post("http://localhost:8000/upload_image", files=files, data=data)
+#        if response.status_code == 200:
+#            st.success("Request successful!")
+#        else:
+#            st.error("Request failed.")
+#    else:
+#        st.write("You need to enter an image and a text!") #ver si se puede distinguir entre imagen y texto faltante
+
+ # Convert the image to gray scale
     #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # Performing OTSU threshold
     #ret, thresh1 = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)
@@ -81,43 +172,3 @@ if uploaded_file is not None:
     #file.write(text)
     #file.write("\n")
     #    texto = texto + " " + text
-
-#Boton para enviar el archivo
-if st.button("Predict"):
-    if uploaded_file:
-        files = {"image": uploaded_file.getvalue()}
-        response = requests.post("http://127.0.0.1:8000/predict", files=files)
-
-        if response.status_code == 200:
-            st.write(f"API Response: {response.json()}")
-            prediction = response.json()['label']
-
-            if prediction == 0:
-                label = "Negative"
-            elif prediction == 1:
-                label = "Positive"
-            else:
-                label = "Unknown"
-            st.success(f"Prediction: {label}")
-        else:
-            st.error("Request failed.")
-    else:
-        st.write("You need to enter an image!")
-
-
-#Altrnativa por si no corre el pytesseract:
-
-# Text input for the string
-#text_input = st.text_input("Enter the meme's text:")
-
-#if st.button("Predict"):
-#    if uploaded_file and text_input:
-#        files = {"image": uploaded_file.getvalue()}
-#        data = {"text": text_input}
-#        response = requests.post("http://localhost:8000/upload_image", files=files, data=data)
-#        if response.status_code == 200:
-#            st.success("Request successful!")
-#        else:
-#            st.error("Request failed.")
-#    else:
-#        st.write("You need to enter an image and a text!") #ver si se puede distinguir entre imagen y texto faltante
