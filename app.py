@@ -84,18 +84,26 @@ if uploaded_file is not None:
 
 #Boton para enviar el archivo
 if st.button("Predict"):
-    if uploaded_file : #modificar esto antes decia texto tmb
+    if uploaded_file:
         files = {"image": uploaded_file.getvalue()}
-        #data = {"text": texto}
-        response = requests.post("http://localhost:8000/predict", files=files) #data=data)
+        response = requests.post("http://127.0.0.1:8000/predict", files=files)
+
         if response.status_code == 200:
-            #prediction = response.json().get("fare", "No prediction available")
-            #st.success(f"The predicted class is: ${prediction:.2f}")
-            st.write("Request succesful!")
+            st.write(f"API Response: {response.json()}")
+            prediction = response.json()['label']
+
+            if prediction == 0:
+                label = "Negative"
+            elif prediction == 1:
+                label = "Positive"
+            else:
+                label = "Unknown"
+            st.success(f"Prediction: {label}")
         else:
             st.error("Request failed.")
     else:
         st.write("You need to enter an image!")
+
 
 #Altrnativa por si no corre el pytesseract:
 
