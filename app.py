@@ -6,18 +6,33 @@ import requests
 #from io import StringIO
 from PIL import Image
 import numpy as np
-import base64
+
 
 API_URL = "http://127.0.0.1:8000/predict/"
-
-
-
 
 st.set_page_config(
             page_title="MemeSense",
             page_icon=":performing_arts:", #Change icon later
             layout="wide", # or centered, wide has more space
             initial_sidebar_state="auto") # collapsed
+
+CSS = """
+<style>
+/* Background for the entire page */
+[data-testid="stAppViewContainer"] {
+background: rgb(24,4,33);
+background: linear-gradient(0deg, rgba(24,4,33,1) 0%, rgba(127,61,148,1) 100%);
+}
+
+/* Keep text styles unaffected */
+h1 {
+    text-shadow: 4px 2px 6px #9aa19b;
+}
+</style>
+"""
+
+# Apply CSS to the page
+st.markdown(CSS, unsafe_allow_html=True)
 
 
 
