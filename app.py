@@ -33,12 +33,12 @@ st.markdown(CSS, unsafe_allow_html=True)
 
 
 
-st.write("# Welcome to MemeSense! 👋")
+st.write("# 🎉 Welcome to MemeSense! 👋")
 
 st.write("##")
 
 ### gif from url
-st.markdown("![Alt Text](https://i.gifer.com/Fh5.gif)")
+#st.markdown("![Alt Text](https://i.gifer.com/Fh5.gif)")
 
 #Proyect Description
 with st.container():
@@ -46,7 +46,7 @@ with st.container():
     left_column, right_column = st.columns(2)
     with left_column:
 
-        st.header("What is MemeSense?")
+        st.header(" 📖 What is MemeSense?")
 
         st.write("##")
 
@@ -54,13 +54,13 @@ with st.container():
 
         st.write("##")
 
-        st.header("What is it for?")
+        st.header(" 🎯 What is it for?")
 
         st.write("##")
 
-        st.write("#### It can be used to apply a meme filter if you don't want to see negative memes on your page.")
+        st.write("#### 📌 Filter out negative memes if you don’t want to see them on your page.")
 
-        st.write("#### It can help you interpret whether a meme is negative or positive if you are not versed in the world of memes.")
+        st.write("#### 📌 Interpret the tone of a meme (positive or negative) if you’re not well-versed in meme culture.")
 
 with right_column:
 
@@ -76,13 +76,24 @@ st.write("---")
 st.write("##")
 
 #User explanation
-st.header("How it works?")
+st.header("⚙️ How it works?")
 
-st.write("#### You just need to upload the meme you want to analyse from your local folder and wait for our app to tell you the result! Supported formats are .jpg, .jpeg and .png.")
+st.write("#### 1. Upload a meme image from your local folder (supported formats: .jpg, .jpeg, .png)")
+
+st.write("#### 2. Analyze the image with our model and wait for the result.")
 
 st.write("##")
 
 st.write("##")
+
+st.write("---")
+
+st.write("##")
+
+st.header("🖼️ Try it out!")
+
+st.write("##")
+
 
 # File uploader for the image
 uploaded_file = st.file_uploader("Choose an image in format jpg, png or jpeg...", type=["jpg", "png", "jpeg"])
@@ -103,15 +114,15 @@ if uploaded_file is not None:
 if st.button("Predict"):
     if uploaded_file:
         files = {"image": uploaded_file.getvalue()}
-        response = requests.post("http://127.0.0.1:8000/predict", files=files)
+        response = requests.post("https://memesense-app-383821638996.us-west1.run.app/predict", files=files)
 
         if response.status_code == 200:
-            st.write(f"API Response: {response.json()}")
             prediction = response.json()['label']
 
             if prediction == 0:
                 label = "Negative"
                 st.markdown("![Alt Text](https://i.gifer.com/5OQ.gif)")
+                st.warning('Please consider the context and audience before sharing. Viewer discretion is advised.', icon="⚠️")
             elif prediction == 1:
                 label = "Positive"
                 st.markdown("![Alt Text](https://i.gifer.com/13ym.gif)")
