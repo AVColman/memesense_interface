@@ -114,7 +114,7 @@ if uploaded_file is not None:
 if st.button("Predict"):
     if uploaded_file:
         files = {"image": uploaded_file.getvalue()}
-        response = requests.post("https://memesense-app-383821638996.us-west1.run.app/predict", files=files)
+        response = requests.post("https://memesense-app-144056429550.us-west1.run.app/predict", files=files)
 
         if response.status_code == 200:
             prediction = response.json()['label']
