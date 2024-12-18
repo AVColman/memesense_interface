@@ -21,7 +21,7 @@ CSS = """
 /* Background for the entire page */
 [data-testid="stAppViewContainer"] {
 background: rgb(24,4,33);
-background: linear-gradient(0deg, rgba(24,4,33,1) 0%, rgba(127,61,148,1) 100%);
+background: linear-gradient(0deg, rgba(24,4,33,1) 0%, rgba(100,176,222,1) 100%);
 }
 
 /* Keep text styles unaffected */
