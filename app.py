@@ -1,9 +1,6 @@
 import streamlit as st
-import streamlit.components.v1 as components  # Import Streamlit
+import streamlit.components.v1 as components
 import requests
-#import cv2
-#import pytesseract
-#from io import StringIO
 from PIL import Image
 import numpy as np
 
@@ -126,68 +123,3 @@ if st.button("Predict"):
             st.error("Request failed.")
     else:
         st.write("You need to enter an image!")
-
-
-#Altrnativa por si no corre el pytesseract:
-
-# Text input for the string
-#text_input = st.text_input("Enter the meme's text:")
-
-#if st.button("Predict"):
-#    if uploaded_file and text_input:
-#        files = {"image": uploaded_file.getvalue()}
-#        data = {"text": text_input}
-#        response = requests.post("http://localhost:8000/upload_image", files=files, data=data)
-#        if response.status_code == 200:
-#            st.success("Request successful!")
-#        else:
-#            st.error("Request failed.")
-#    else:
-#        st.write("You need to enter an image and a text!") #ver si se puede distinguir entre imagen y texto faltante
-
- # Convert the image to gray scale
-    #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    # Performing OTSU threshold
-    #ret, thresh1 = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)
-    # Specify structure shape and kernel size.
-    # Kernel size increases or decreases the area
-    # of the rectangle to be detected.
-    # A smaller value like (10, 10) will detect
-    # each word instead of a sentence.
-    #rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (18, 18))
-    # Applying dilation on the threshold image
-    #dilation = cv2.dilate(thresh1, rect_kernel, iterations = 1)
-    # Finding contours
-    #contours, hierarchy = cv2.findContours(dilation, cv2.RETR_EXTERNAL,
-   #                                              cv2.CHAIN_APPROX_NONE)
-    # Creating a copy of image
-    #im2 = img.copy()
-
-    #Variable to save the text of the meme
-
-    #texto = ""
-
-# Looping through the identified contours
-# Then rectangular part is cropped and passed on
-# to pytesseract for extracting text from it
-# Extracted text is then written into the text file
-   # for cnt in contours:
-   #     x, y, w, h = cv2.boundingRect(cnt)
-
-    # Drawing a rectangle on copied image
-   #     rect = cv2.rectangle(im2, (x, y), (x + w, y + h), (0, 255, 0), 2)
-
-    # Cropping the text block for giving input to OCR
-    #    cropped = im2[y:y + h, x:x + w]
-
-    # Open the file in append mode
-    #file = open("recognized.txt", "a")
-
-
-    # Apply OCR on the cropped image
-    #    text = pytesseract.image_to_string(cropped)
-
-    # Appending the text into file
-    #file.write(text)
-    #file.write("\n")
-    #    texto = texto + " " + text
