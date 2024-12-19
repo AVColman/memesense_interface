@@ -7,12 +7,13 @@ import numpy as np
 
 API_URL = "http://127.0.0.1:8000/predict/"
 
+#page configuration
 st.set_page_config(
             page_title="MemeSense",
             page_icon=":performing_arts:", #Change icon later
             layout="wide", # or centered, wide has more space
             initial_sidebar_state="auto") # collapsed
-
+#page background color
 CSS = """
 <style>
 /* Background for the entire page */
