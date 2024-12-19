@@ -5,6 +5,7 @@ from PIL import Image
 import numpy as np
 
 
+
 API_URL = "http://127.0.0.1:8000/predict/"
 
 #page configuration
@@ -135,3 +136,23 @@ if st.button("Predict"):
             st.error("Request failed.")
     else:
         st.write("You need to enter an image!")
+
+
+st.write("##")
+
+st.write("---")
+
+st.write("##")
+
+st. header(":mailbox: Get in touch with us!")
+
+contact_form = """
+<form action="https://formsubmit.co/alinavcolman@gmail.com" method="POST">
+     <input type="text" name="name" Placeholder="Your name" required>
+     <input type="email" name="email" Placeholder="Your email" required>
+     <textarea name="message" placeholder="Your message here"></textarea>
+     <button type="submit">Send</button>
+</form>
+"""
+
+st.markdown(contact_form, unsafe_allow_html= True)
